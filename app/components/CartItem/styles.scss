@@ -1,0 +1,41 @@
+.cart-item {
+  display: flex;
+  height: 120px;
+  background: #ffffff;
+  border: 1px solid #f3f3f3;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__image {
+    margin: 25px 20px;
+  }
+
+  &__info {
+    width: 150px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    margin: 30px 12px 30px 0px;
+
+    h6 {
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+
+  button {
+    margin: 44px 20px 44px 0px;
+    opacity: 0.5;
+    transform: opacity 0.15s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  z-index: 1;
+}
+
+.cart {
+  position: absolute;
+  width: 385px;
+  height: 100%;
+  background-color: white;
+  right: 0;
+  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+
+  &-wrapper {
+    margin: 30px;
+
+    h4 {
+      font-weight: 700;
+    }
+
+    ul {
+      li {
+        display: flex;
+      }
+    }
+  }
+
+  &-items {
+    margin-top: 30px;
+  }
+
+  &-total-block {
+    div {
+      flex: 1;
+      height: 1px;
+      border: 1px dashed #dfdfdf;
+    }
+  }
+}

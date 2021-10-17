@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "paths": {
+      "@App/*": ["./app/containers/App/*"],
+      "@components/*": ["./app/components/*"],
+      "@containers/*": ["./app/containers/*"],
+      "@internals/*": ["./internals/*"],
+      "@utils/*": ["./app/utils/*"],
+      "@images/*": [".app/images/*"],
+    }
+  }
+}

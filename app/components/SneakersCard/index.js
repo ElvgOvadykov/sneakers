@@ -1,0 +1,47 @@
+/**
+ *
+ * SneakersCard
+ *
+ */
+
+import React from "react";
+import PropTypes from "prop-types";
+
+import { FormattedMessage } from "react-intl";
+import messages from "./messages";
+import sneakersImg from "@images/testSneakers.png";
+
+import TogglePlus from "@components/TogglePlus/Loadable";
+import ToggleLike from "@components/ToggleLike/Loadable";
+
+import "./styles.scss";
+
+function SneakersCard(props) {
+  const { name, price } = props;
+
+  return (
+    <div className="card">
+      <ToggleLike liked />
+      <div className="card-image">
+        <img width={133} height={112} src={sneakersImg} alt="Sneakers" />
+      </div>
+      <h6>{name}</h6>
+      <div className="card__bottom">
+        <div className="card__bottom__info">
+          <span>
+            <FormattedMessage {...messages.price} />
+          </span>
+          <b>{price} руб.</b>
+        </div>
+        <TogglePlus checked />
+      </div>
+    </div>
+  );
+}
+
+SneakersCard.propTypes = {
+  name: PropTypes.string,
+  price: PropTypes.number,
+};
+
+export default SneakersCard;
