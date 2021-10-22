@@ -5,22 +5,22 @@
  */
 
 import React, { memo } from "react";
-
+import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import messages from "./messages";
 
 import cartSvg from "@images/svg/cart.svg";
-import favorite from "@images/svg/favorite.svg";
-import user from "@images/svg/user.svg";
-import logo from "@images/logo.png";
+import favoriteSvg from "@images/svg/favorite.svg";
+import userSvg from "@images/svg/user.svg";
+import logoPng from "@images/logo.png";
 
 import "./styles.scss";
 
-function Header() {
+function Header(props) {
   return (
     <header>
       <div className="header-left">
-        <img alt="Logo" width={40} height={40} src={logo} />
+        <img alt="Logo" width={40} height={40} src={logoPng} />
         <div className="header-left-info">
           <h3>
             <FormattedMessage {...messages.projectName} />
@@ -34,13 +34,18 @@ function Header() {
         <ul>
           <li>
             <img src={cartSvg} alt="cart" />
-            <span className="cart-sum">1206 руб.</span>
+            <span className="cart-sum">
+              <FormattedMessage
+                {...messages.cartSummValue}
+                values={{ value: props.cartSumm }}
+              />
+            </span>
           </li>
           <li>
-            <img src={favorite} alt="favorite" />
+            <img src={favoriteSvg} alt="favorite" />
           </li>
           <li>
-            <img src={user} alt="user" />
+            <img src={userSvg} alt="user" />
           </li>
         </ul>
       </div>
@@ -48,6 +53,8 @@ function Header() {
   );
 }
 
-Header.propTypes = {};
+Header.propTypes = {
+  cartSumm: PropTypes.number,
+};
 
 export default memo(Header);

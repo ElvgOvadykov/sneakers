@@ -7,9 +7,6 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 
-import { FormattedMessage } from "react-intl";
-import messages from "./messages";
-
 import sneakersImg from "@images/testSneakers.png";
 import crossSvg from "@images/svg/cross.svg";
 

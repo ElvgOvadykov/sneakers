@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { injectIntl } from "react-intl";
 
 import messages from "./messages";
@@ -14,7 +14,7 @@ import { Cart } from "@containers/Cart";
 function HomePage(props) {
   const { intl } = props;
 
-  const [sneakers, setSneakers] = useState([
+  const [sneakers, setSneakers] = React.useState([
     {
       name: "Мужские Кроссовки Nike Blazer Mid Suede",
       price: 12999,
@@ -33,10 +33,27 @@ function HomePage(props) {
     },
   ]);
 
+  const [cartItems, setCartItems] = React.useState([
+    {
+      name: "Мужские Кроссовки Nike Air Max 270",
+      price: 12999,
+    },
+    {
+      name: "Мужские Кроссовки Nike Air Max 270",
+      price: 8499,
+    },
+  ]);
+
+  const cartSumm = React.useMemo(
+    () =>
+      cartItems.map(item => item.price).reduce((summ, value) => summ + value),
+    [cartItems]
+  );
+
   return (
     <div className="wrapper">
-      <Cart />
-      <Header />
+      <Cart cartItems={[]} cartSumm={cartSumm} visible={true} />
+      <Header cartSumm={cartSumm} />
       <div className="content">
         <div className="content__header mb-3">
           <h1>Все кроссовки</h1>

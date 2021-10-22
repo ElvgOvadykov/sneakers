@@ -49,6 +49,25 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
   }
+
+  .big-button {
+    height: 55px;
+    background: #9DD558;
+    border-radius: 18px;
+    border: 0px;
+    color: white;
+    font-weight: 600;
+    transition: background 0.1s ease-in-out; 
+    position: relative;
+  }
+
+  .big-button:hover {
+    background: #a6d968;
+  }
+
+  .big-button:active {
+    background: #8ece3f;
+  }
 `;
 
 export default GlobalStyle;

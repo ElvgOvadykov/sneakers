@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { createStructuredSelector } from "reselect";
 import { compose } from "redux";
+import classNames from "classnames";
 
 import { useInjectSaga } from "utils/injectSaga";
 import { useInjectReducer } from "utils/injectReducer";
@@ -21,50 +22,52 @@ import messages from "./messages";
 import "./styles.scss";
 import CartItem from "@components/CartItem";
 
-export function Cart() {
+import rightArrowSvg from "@images/svg/rightArrow.svg";
+import leftArrowSvg from "@images/svg/leftArrow.svg";
+import crossSvg from "@images/svg/cross.svg";
+import emptySvg from "@images/svg/empty.svg";
+
+export function Cart(props) {
   useInjectReducer({ key: "cart", reducer });
   useInjectSaga({ key: "cart", saga });
 
-  const [cartItems, setCartItems] = React.useState([
-    {
-      name: "Мужские Кроссовки Nike Air Max 270",
-      price: 12999,
-    },
-    {
-      name: "Мужские Кроссовки Nike Air Max 270",
-      price: 8499,
-    },
+  const tax = React.useMemo(() => Math.ceil(props.cartSumm * 0.05), [
+    props.cartItems,
   ]);
 
-  const summ = React.useMemo(
-    () =>
-      cartItems.map(item => item.price).reduce((summ, value) => summ + value),
-    [cartItems]
+  const isCartEmpty = React.useMemo(
+    () => !props.cartItems || !props.cartItems.length,
+    [props.cartItems]
   );
 
-  const tax = React.useMemo(
-    () =>
-      Math.ceil(
-        cartItems
-          .map(item => item.price)
-          .reduce((summ, value) => summ + value) * 0.05
-      ),
-    [cartItems]
-  );
+  function getCartWrapperContent() {
+    if (isCartEmpty) {
+      return (
+        <div className="cart-empty">
+          <img src={emptySvg} alt="Empty" />
+          <h5>
+            <FormattedMessage {...messages.empty} />{" "}
+          </h5>
+          <span className="empty-comment">
+            <FormattedMessage {...messages.emptyComment} />
+          </span>
+          <button className="big-button">
+            <img src={leftArrowSvg} alt="Arrow" />
+            <FormattedMessage {...messages.returnButton} />
+          </button>
+        </div>
+      );
+    }
 
-  return (
-    <div className="overlay">
-      <div className="cart">
-        <div className="cart-wrapper">
-          <h4>
-            <FormattedMessage {...messages.header} />
-          </h4>
-          <div className="cart-items">
-            {cartItems.map(cartItem => (
-              <CartItem name={cartItem.name} price={cartItem.price} />
-            ))}
-          </div>
-          <ul className="cart-total-block">
+    return (
+      <React.Fragment>
+        <div className="cart-items">
+          {props.cartItems.map(cartItem => (
+            <CartItem name={cartItem.name} price={cartItem.price} />
+          ))}
+        </div>
+        <div className="cart-total-block">
+          <ul>
             <li>
               <span>
                 <FormattedMessage {...messages.summLabel} />
@@ -73,7 +76,7 @@ export function Cart() {
               <b>
                 <FormattedMessage
                   {...messages.summValue}
-                  values={{ value: summ }}
+                  values={{ value: props.cartSumm }}
                 />
               </b>
             </li>
@@ -90,11 +93,36 @@ export function Cart() {
               </b>
             </li>
           </ul>
+          <button className="big-button">
+            <FormattedMessage {...messages.checkoutButton} />
+            <img src={rightArrowSvg} />
+          </button>
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  return (
+    <div className={classNames("overlay", { "d-none": !props.visible })}>
+      <div className="cart">
+        <div className="cart-wrapper">
+          <h4>
+            <FormattedMessage {...messages.header} />
+            <button className="small-button">
+              <img src={crossSvg} alt="Close" />
+            </button>
+          </h4>
+          {getCartWrapperContent()}
         </div>
       </div>
     </div>
   );
 }
+
+Cart.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  cartSumm: PropTypes.number.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
   cart: makeSelectCart(),

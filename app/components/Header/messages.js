@@ -17,4 +17,8 @@ export default defineMessages({
     id: `${scope}.tegline`,
     defaultMessage: "Магазин лучших кроссовок",
   },
+  cartSummValue: {
+    id: `${scope}.value.cart_summ`,
+    defaultMessage: "{value} руб.",
+  },
 });
