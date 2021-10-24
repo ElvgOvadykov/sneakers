@@ -12,4 +12,8 @@ export default defineMessages({
     id: `${scope}.search_placeholder`,
     defaultMessage: "Поиск...",
   },
+  allSneakersLabel: {
+    id: `${scope}.label.all_sneakers`,
+    defaultMessage: "Все кроссовки",
+  },
 });

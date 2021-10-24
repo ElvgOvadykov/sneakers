@@ -12,17 +12,22 @@ import { Switch, Route } from "react-router-dom";
 
 import HomePage from "containers/HomePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
+import Header from "@components/Header/Loadable";
 
 import GlobalStyle from "../../global-styles";
+import "./styles.scss";
 
 export default function App() {
   return (
-    <div>
+    <React.Fragment>
       <GlobalStyle />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
+      <div className="wrapper">
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </div>
+    </React.Fragment>
   );
 }

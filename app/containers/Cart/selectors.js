@@ -11,6 +11,21 @@ const selectCartDomain = state => state.cart || initialState;
  * Other specific selectors
  */
 
+const selectCartItems = () =>
+  createSelector(
+    selectCartDomain,
+    substate => substate.cartItems
+  );
+
+const selectCartSumm = () =>
+  createSelector(
+    selectCartDomain,
+    substate =>
+      substate.cartItems
+        .map(item => item.price)
+        .reduce((summ, value) => summ + value)
+  );
+
 /**
  * Default selector used by Cart
  */
@@ -22,4 +37,4 @@ const makeSelectCart = () =>
   );
 
 export default makeSelectCart;
-export { selectCartDomain };
+export { selectCartItems, selectCartSumm };

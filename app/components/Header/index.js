@@ -8,6 +8,11 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import messages from "./messages";
+import { createStructuredSelector } from "reselect";
+import { compose } from "redux";
+import { connect } from "react-redux";
+
+import { selectCartSumm } from "@containers/Cart/selectors";
 
 import cartSvg from "@images/svg/cart.svg";
 import favoriteSvg from "@images/svg/favorite.svg";
@@ -57,4 +62,18 @@ Header.propTypes = {
   cartSumm: PropTypes.number,
 };
 
-export default memo(Header);
+const mapStateToProps = createStructuredSelector({
+  cartSumm: selectCartSumm(),
+});
+
+const mapDispatchToProps = {};
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
+
+export default compose(
+  withConnect,
+  memo
+)(Header);

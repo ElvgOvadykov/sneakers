@@ -14,10 +14,12 @@ import classNames from "classnames";
 
 import { useInjectSaga } from "utils/injectSaga";
 import { useInjectReducer } from "utils/injectReducer";
-import makeSelectCart from "./selectors";
+import makeSelectCart, { selectCartItems, selectCartSumm } from "./selectors";
+import { removeItemFromCart } from "./actions";
 import reducer from "./reducer";
 import saga from "./saga";
 import messages from "./messages";
+import { SneakersPropTypes } from "@utils/propTypes";
 
 import "./styles.scss";
 import CartItem from "@components/CartItem";
@@ -27,7 +29,7 @@ import leftArrowSvg from "@images/svg/leftArrow.svg";
 import crossSvg from "@images/svg/cross.svg";
 import emptySvg from "@images/svg/empty.svg";
 
-export function Cart(props) {
+function Cart(props) {
   useInjectReducer({ key: "cart", reducer });
   useInjectSaga({ key: "cart", saga });
 
@@ -40,23 +42,41 @@ export function Cart(props) {
     [props.cartItems]
   );
 
-  function getCartWrapperContent() {
-    if (isCartEmpty) {
-      return (
-        <div className="cart-empty">
-          <img src={emptySvg} alt="Empty" />
-          <h5>
-            <FormattedMessage {...messages.empty} />{" "}
-          </h5>
-          <span className="empty-comment">
-            <FormattedMessage {...messages.emptyComment} />
-          </span>
-          <button className="big-button">
-            <img src={leftArrowSvg} alt="Arrow" />
-            <FormattedMessage {...messages.returnButton} />
-          </button>
-        </div>
-      );
+  const [isSuccess, setIsSuccess] = React.useState(false);
+
+  function getCartEmptyInfo() {
+    if (!isCartEmpty) {
+      return null;
+    }
+
+    return (
+      <div className="cart-empty">
+        <img src={emptySvg} alt="Empty" />
+        <h5>
+          <FormattedMessage {...messages.empty} />{" "}
+        </h5>
+        <span className="empty-comment">
+          <FormattedMessage {...messages.emptyComment} />
+        </span>
+        <button className="big-button">
+          <img src={leftArrowSvg} alt="Arrow" />
+          <FormattedMessage {...messages.returnButton} />
+        </button>
+      </div>
+    );
+  }
+
+  // function getOrderProcessedInfo() {
+  //   if (!isSuccess) {
+  //     return null;
+  //   }
+
+  //   return <div className="order-processed">заказ оформлен</div>;
+  // }
+
+  function getCartItems() {
+    if (isCartEmpty || isSuccess) {
+      return null;
     }
 
     return (
@@ -102,6 +122,16 @@ export function Cart(props) {
     );
   }
 
+  function getCartWrapperContent() {
+    return (
+      <React.Fragment>
+        {getCartEmptyInfo()}
+        {/* {getOrderProcessedInfo()} */}
+        {getCartItems()}
+      </React.Fragment>
+    );
+  }
+
   return (
     <div className={classNames("overlay", { "d-none": !props.visible })}>
       <div className="cart">
@@ -120,19 +150,20 @@ export function Cart(props) {
 }
 
 Cart.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  cartSumm: PropTypes.number.isRequired,
+  cartItems: PropTypes.arrayOf(SneakersPropTypes),
+  cartSumm: PropTypes.number,
+  removeItem: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems(),
+  cartSumm: selectCartSumm(),
   cart: makeSelectCart(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+const mapDispatchToProps = {
+  removeItem: removeItemFromCart,
+};
 
 const withConnect = connect(
   mapStateToProps,
