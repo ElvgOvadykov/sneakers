@@ -17,7 +17,7 @@ function TogglePlus(props) {
 
   return (
     <button
-      className={classNames("small-button", {
+      className={classNames("small-button", "toggle-plus", {
         "toggle-plus__checked": checked,
       })}
       type="button"

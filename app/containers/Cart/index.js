@@ -86,8 +86,8 @@ function Cart(props) {
           {props.cartItems.map(cartItem => (
             <CartItem
               key={cartItem.id}
-              name={cartItem.name}
-              price={cartItem.price}
+              cartItem={cartItem}
+              onRemoveItem={() => props.removeItem(cartItem)}
             />
           ))}
         </div>

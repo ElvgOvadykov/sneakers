@@ -18,7 +18,9 @@ function ToggleLike(props) {
 
   return (
     <button
-      className={classNames("small-button", { "toggle-like__liked": liked })}
+      className={classNames("small-button", "toggle-like", {
+        "toggle-like__liked": liked,
+      })}
       type="button"
     >
       {liked ? (
