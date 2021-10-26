@@ -4,9 +4,15 @@
  *
  */
 import produce from "immer";
-import { ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART } from "./constants";
+import {
+  ADD_ITEM_TO_CART,
+  REMOVE_ITEM_FROM_CART,
+  OPEN_CART,
+  CLOSE_CART,
+} from "./constants";
 
 export const initialState = {
+  visible: false,
   cartItems: [
     {
       id: 2,
@@ -35,6 +41,12 @@ const cartReducer = (state = initialState, action) =>
         if (removeIndex >= 0) {
           draft.cartItems.splice(removeIndex, 1);
         }
+        break;
+      case OPEN_CART:
+        draft.visible = true;
+        break;
+      case CLOSE_CART:
+        draft.visible = initialState.visible;
         break;
     }
   });

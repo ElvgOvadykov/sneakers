@@ -13,6 +13,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 
 import { selectCartSumm } from "@containers/Cart/selectors";
+import { openCart } from "@containers/Cart/actions";
 
 import cartSvg from "@images/svg/cart.svg";
 import favoriteSvg from "@images/svg/favorite.svg";
@@ -22,6 +23,10 @@ import logoPng from "@images/logo.png";
 import "./styles.scss";
 
 function Header(props) {
+  function openCartHandler() {
+    props.openCart();
+  }
+
   return (
     <header>
       <div className="header-left">
@@ -37,7 +42,7 @@ function Header(props) {
       </div>
       <div className="header-right">
         <ul>
-          <li>
+          <li onClick={openCartHandler}>
             <img src={cartSvg} alt="cart" />
             <span className="cart-sum">
               <FormattedMessage
@@ -60,13 +65,16 @@ function Header(props) {
 
 Header.propTypes = {
   cartSumm: PropTypes.number,
+  openCart: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   cartSumm: selectCartSumm(),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  openCart,
+};
 
 const withConnect = connect(
   mapStateToProps,

@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #e7f6ff;
+    overflow-x: hidden;
   }
 
   body {
@@ -48,6 +49,16 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.5;
+    transform: opacity 0.15s ease-in-out;
+  }
+
+  .small-button:hover {
+    opacity: 1;
+  }
+
+  .small-button:active {
+    background: #f2f2f2
   }
 
   .big-button {

@@ -12,14 +12,18 @@ import { createStructuredSelector } from "reselect";
 import { compose } from "redux";
 import classNames from "classnames";
 
-import { useInjectSaga } from "utils/injectSaga";
-import { useInjectReducer } from "utils/injectReducer";
-import makeSelectCart, { selectCartItems, selectCartSumm } from "./selectors";
-import { removeItemFromCart } from "./actions";
+import {
+  selectCartItems,
+  selectCartSumm,
+  selectCartVisible,
+} from "./selectors";
+import { removeItemFromCart, closeCart } from "./actions";
 import reducer from "./reducer";
 import saga from "./saga";
 import messages from "./messages";
 import { SneakersPropTypes } from "@utils/propTypes";
+import injectSaga from "@utils/injectSaga";
+import injectReducer from "@utils/injectReducer";
 
 import "./styles.scss";
 import CartItem from "@components/CartItem";
@@ -30,9 +34,6 @@ import crossSvg from "@images/svg/cross.svg";
 import emptySvg from "@images/svg/empty.svg";
 
 function Cart(props) {
-  useInjectReducer({ key: "cart", reducer });
-  useInjectSaga({ key: "cart", saga });
-
   const tax = React.useMemo(() => Math.ceil(props.cartSumm * 0.05), [
     props.cartItems,
   ]);
@@ -83,7 +84,11 @@ function Cart(props) {
       <React.Fragment>
         <div className="cart-items">
           {props.cartItems.map(cartItem => (
-            <CartItem name={cartItem.name} price={cartItem.price} />
+            <CartItem
+              key={cartItem.id}
+              name={cartItem.name}
+              price={cartItem.price}
+            />
           ))}
         </div>
         <div className="cart-total-block">
@@ -132,20 +137,29 @@ function Cart(props) {
     );
   }
 
+  function closeCartHandler() {
+    props.closeCart();
+  }
+
   return (
-    <div className={classNames("overlay", { "d-none": !props.visible })}>
-      <div className="cart">
+    <React.Fragment>
+      <div
+        className={classNames("overlay", { overlay__open: props.visible })}
+        onClick={closeCartHandler}
+      />
+
+      <div className={classNames("cart", { cart__open: props.visible })}>
         <div className="cart-wrapper">
           <h4>
             <FormattedMessage {...messages.header} />
-            <button className="small-button">
+            <button className="small-button" onClick={closeCartHandler}>
               <img src={crossSvg} alt="Close" />
             </button>
           </h4>
           {getCartWrapperContent()}
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 
@@ -153,16 +167,19 @@ Cart.propTypes = {
   cartItems: PropTypes.arrayOf(SneakersPropTypes),
   cartSumm: PropTypes.number,
   removeItem: PropTypes.func,
+  visible: PropTypes.bool,
+  closeCart: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems(),
   cartSumm: selectCartSumm(),
-  cart: makeSelectCart(),
+  visible: selectCartVisible(),
 });
 
 const mapDispatchToProps = {
   removeItem: removeItemFromCart,
+  closeCart,
 };
 
 const withConnect = connect(
@@ -170,7 +187,12 @@ const withConnect = connect(
   mapDispatchToProps
 );
 
+const withReducer = injectReducer({ key: "cart", reducer });
+const withSaga = injectSaga({ key: "cart", saga });
+
 export default compose(
+  withReducer,
+  withSaga,
   withConnect,
   memo
 )(Cart);

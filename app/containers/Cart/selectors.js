@@ -26,6 +26,12 @@ const selectCartSumm = () =>
         .reduce((summ, value) => summ + value)
   );
 
+const selectCartVisible = () =>
+  createSelector(
+    selectCartDomain,
+    substate => substate.visible
+  );
+
 /**
  * Default selector used by Cart
  */
@@ -37,4 +43,4 @@ const makeSelectCart = () =>
   );
 
 export default makeSelectCart;
-export { selectCartItems, selectCartSumm };
+export { selectCartItems, selectCartSumm, selectCartVisible };

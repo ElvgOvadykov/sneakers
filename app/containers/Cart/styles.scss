@@ -6,6 +6,12 @@
   height: 100%;
   background-color: rgba($color: #000000, $alpha: 0.4);
   z-index: 1;
+  overflow: hidden;
+  display: none;
+
+  &__open {
+    display: block;
+  }
 }
 
 .cart {
@@ -14,8 +20,16 @@
   height: 100%;
   background-color: white;
   right: 0;
+  top: 0;
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   display: flex;
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
+  z-index: 2;
+
+  &__open {
+    transform: translateX(0%);
+  }
 
   &-wrapper {
     box-sizing: border-box;

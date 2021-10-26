@@ -13,6 +13,7 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "containers/HomePage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import Header from "@components/Header/Loadable";
+import Cart from "@containers/Cart/Loadable";
 
 import GlobalStyle from "../../global-styles";
 import "./styles.scss";
@@ -21,6 +22,7 @@ export default function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
+      <Cart />
       <div className="wrapper">
         <Header />
         <Switch>

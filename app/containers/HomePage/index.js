@@ -1,5 +1,5 @@
 import React from "react";
-import { FormattedDate, FormattedMessage, injectIntl } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 
 import messages from "./messages";
 
