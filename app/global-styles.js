@@ -15,9 +15,6 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: #e7f6ff;
     overflow-x: hidden;
-  }
-
-  body {
     font-family: 'Inter', system-ui;
   }
 
@@ -37,6 +34,10 @@ const GlobalStyle = createGlobalStyle`
   
   li {
     list-style-type: none;
+  }
+
+  h1 {
+    font-weight: 700;
   }
 
   .small-button {

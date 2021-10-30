@@ -1,0 +1,18 @@
+.bookmarks {
+  padding: 45px 60px;
+
+  h1 {
+    display: flex;
+
+    button {
+      margin-right: 20px;
+    }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 4%;
+  }
+}

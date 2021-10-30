@@ -43,7 +43,21 @@ function Cart(props) {
     [props.cartItems]
   );
 
-  const [isSuccess, setIsSuccess] = React.useState(false);
+  React.useEffect(() => {
+    if (props.visible) {
+      const documentWidth = document.documentElement.clientWidth;
+      const windowWidth = window.innerWidth;
+      const scrollBarWidth = windowWidth - documentWidth;
+
+      console.log(scrollBarWidth);
+
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.paddingRight = "0px";
+      document.body.style.overflowY = "scroll";
+    }
+  }, [props.visible]);
 
   function getCartEmptyInfo() {
     if (!isCartEmpty) {
@@ -59,7 +73,7 @@ function Cart(props) {
         <span className="empty-comment">
           <FormattedMessage {...messages.emptyComment} />
         </span>
-        <button className="big-button">
+        <button className="big-button" onClick={closeCartHandler}>
           <img src={leftArrowSvg} alt="Arrow" />
           <FormattedMessage {...messages.returnButton} />
         </button>
@@ -67,16 +81,8 @@ function Cart(props) {
     );
   }
 
-  // function getOrderProcessedInfo() {
-  //   if (!isSuccess) {
-  //     return null;
-  //   }
-
-  //   return <div className="order-processed">заказ оформлен</div>;
-  // }
-
   function getCartItems() {
-    if (isCartEmpty || isSuccess) {
+    if (isCartEmpty) {
       return null;
     }
 
@@ -131,7 +137,6 @@ function Cart(props) {
     return (
       <React.Fragment>
         {getCartEmptyInfo()}
-        {/* {getOrderProcessedInfo()} */}
         {getCartItems()}
       </React.Fragment>
     );
@@ -144,11 +149,11 @@ function Cart(props) {
   return (
     <React.Fragment>
       <div
-        className={classNames("overlay", { overlay__open: props.visible })}
+        className={classNames("overlay", { overlay__opened: props.visible })}
         onClick={closeCartHandler}
       />
 
-      <div className={classNames("cart", { cart__open: props.visible })}>
+      <div className={classNames("cart", { cart__opened: props.visible })}>
         <div className="cart-wrapper">
           <h4>
             <FormattedMessage {...messages.header} />

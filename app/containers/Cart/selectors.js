@@ -20,10 +20,15 @@ const selectCartItems = () =>
 const selectCartSumm = () =>
   createSelector(
     selectCartDomain,
-    substate =>
-      substate.cartItems
+    substate => {
+      if (!substate.cartItems || substate.cartItems.length === 0) {
+        return 0;
+      }
+
+      return substate.cartItems
         .map(item => item.price)
-        .reduce((summ, value) => summ + value)
+        .reduce((summ, value) => summ + value);
+    }
   );
 
 const selectCartVisible = () =>

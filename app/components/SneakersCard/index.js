@@ -16,12 +16,14 @@ import ToggleLike from "@components/ToggleLike/Loadable";
 
 import "./styles.scss";
 
+import { SneakersPropTypes } from "@utils/propTypes";
+
 function SneakersCard(props) {
-  const { name, price } = props;
+  const { name, price } = props.cartItem;
 
   return (
     <div className="card">
-      <ToggleLike liked />
+      <ToggleLike />
       <div className="card-image">
         <img width={133} height={112} src={sneakersImg} alt="Sneakers" />
       </div>
@@ -33,15 +35,14 @@ function SneakersCard(props) {
           </span>
           <b>{price} руб.</b>
         </div>
-        <TogglePlus checked />
+        <TogglePlus />
       </div>
     </div>
   );
 }
 
 SneakersCard.propTypes = {
-  name: PropTypes.string,
-  price: PropTypes.number,
+  cartItem: SneakersPropTypes.isRequired,
 };
 
 export default SneakersCard;

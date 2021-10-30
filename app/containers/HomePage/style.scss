@@ -6,10 +6,6 @@
     justify-content: space-between;
     align-items: center;
 
-    h1 {
-      font-weight: 700;
-    }
-
     .search-block {
       display: inline-flex;
       border: 1px #f3f3f3 solid;
@@ -27,7 +23,9 @@
   }
 
   &__sneakers {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 3%;
   }
 }

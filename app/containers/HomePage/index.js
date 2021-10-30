@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { bool } from "prop-types";
 import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { createStructuredSelector } from "reselect";
@@ -11,6 +11,7 @@ import reducer from "./reducer";
 
 import injectSaga from "@utils/injectSaga";
 import injectReducer from "@utils/injectReducer";
+import { SneakersPropTypes } from "@utils/propTypes";
 
 import SneakersCard from "@components/SneakersCard/Loadable";
 
@@ -24,32 +25,36 @@ function HomePage(props) {
   const { intl } = props;
 
   return (
-    <div>
-      <div className="content">
-        <div className="content__header mb-3">
-          <h1>
-            <FormattedMessage {...messages.allSneakersLabel} />
-          </h1>
-          <div className="search-block">
-            <img src={SearchSvg} alt="Search" />
-            <input
-              type="text"
-              placeholder={intl.formatMessage({
-                ...messages.searchPlaceholder,
-              })}
-            />
-          </div>
+    <div className="content">
+      <div className="content__header mb-3">
+        <h1>
+          <FormattedMessage {...messages.allSneakersLabel} />
+        </h1>
+        <div className="search-block">
+          <img src={SearchSvg} alt="Search" />
+          <input
+            type="text"
+            placeholder={intl.formatMessage({
+              ...messages.searchPlaceholder,
+            })}
+          />
         </div>
+      </div>
 
-        <div className="content__sneakers">
-          {props.sneakers.map(item => (
-            <SneakersCard name={item.name} price={item.price} />
-          ))}
-        </div>
+      <div className="content__sneakers">
+        {props.sneakers.map(item => (
+          <SneakersCard cartItem={item} />
+        ))}
       </div>
     </div>
   );
 }
+
+HomePage.propTypes = {
+  sneakers: PropTypes.arrayOf(SneakersPropTypes),
+  isLoading: PropTypes.bool,
+  error: PropTypes.object,
+};
 
 const mapStateToProps = createStructuredSelector({
   sneakers: selectSneakers(),

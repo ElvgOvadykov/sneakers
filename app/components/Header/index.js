@@ -20,6 +20,8 @@ import favoriteSvg from "@images/svg/favorite.svg";
 import userSvg from "@images/svg/user.svg";
 import logoPng from "@images/logo.png";
 
+import history from "@utils/history";
+
 import "./styles.scss";
 
 function Header(props) {
@@ -27,9 +29,17 @@ function Header(props) {
     props.openCart();
   }
 
+  function goToHomePageHandler() {
+    history.push("/");
+  }
+
+  function goToBookmarksHandler() {
+    history.push("/bookmarks");
+  }
+
   return (
     <header>
-      <div className="header-left">
+      <div className="header-left" onClick={goToHomePageHandler}>
         <img alt="Logo" width={40} height={40} src={logoPng} />
         <div className="header-left-info">
           <h3>
@@ -51,7 +61,7 @@ function Header(props) {
               />
             </span>
           </li>
-          <li>
+          <li onClick={goToBookmarksHandler}>
             <img src={favoriteSvg} alt="favorite" />
           </li>
           <li>
