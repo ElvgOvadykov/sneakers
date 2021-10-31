@@ -1,0 +1,52 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  font-weight: 500;
+
+  /* Хака для расположения блока в центре*/
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 20%);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    h3 {
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 0px;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 7px;
+  }
+
+  .field-wrapper {
+    display: inline-flex;
+    border: 1px #f3f3f3 solid;
+    border-radius: 10px;
+    height: 100%;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    padding: 5px 12px;
+  }
+
+  .field {
+    border: 0px;
+    margin-left: 5px;
+  }
+}
