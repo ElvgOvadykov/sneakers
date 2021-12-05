@@ -15,6 +15,7 @@ import BookmarksPage from "@containers/BookmarksPage/Loadable";
 import NotFoundPage from "containers/NotFoundPage/Loadable";
 import Header from "@components/Header/Loadable";
 import Cart from "@containers/Cart/Loadable";
+import Auth from "@containers/Auth/Loadable";
 
 import GlobalStyle from "../../global-styles";
 import "./styles.scss";
@@ -24,6 +25,9 @@ export default function App() {
     <React.Fragment>
       <GlobalStyle />
       <Cart />
+      <Switch>
+        <Route exact path="/login" component={Auth} />
+      </Switch>
       <div className="wrapper">
         <Header />
         <Switch>

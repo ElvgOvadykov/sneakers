@@ -11,38 +11,7 @@ import {
 } from "./constants";
 
 export const initialState = {
-  sneakers: [
-    {
-      id: 1,
-      name: "Мужские Кроссовки Nike Blazer Mid Suede",
-      price: 12999,
-    },
-    {
-      id: 2,
-      name: "Мужские Кроссовки Nike Air Max 270",
-      price: 12999,
-    },
-    {
-      id: 3,
-      name: "Кроссовки Puma X Aka Boku Future Rider",
-      price: 8999,
-    },
-    {
-      id: 4,
-      name: "Мужские Кроссовки Under Armour Curry 8",
-      price: 15199,
-    },
-    {
-      id: 5,
-      name: "Мужские Кроссовки Nike Kyrie 7",
-      price: 11999,
-    },
-    {
-      id: 6,
-      name: "Мужские Кроссовки Jordan Air Jordan 11",
-      price: 10799,
-    },
-  ],
+  sneakers: [],
   isLoading: false,
   error: undefined,
 };
@@ -55,9 +24,8 @@ const homePageReducer = (state = initialState, action) =>
         draft.isLoading = true;
         draft.error = initialState.error;
         break;
-      /** пока бэка нет в state sneakers не изменяется */
-
       case SNEAKERS_LOAD_SUCCESS:
+        draft.sneakers = action.data;
         draft.isLoading = initialState.isLoading;
         draft.error = initialState.error;
         break;

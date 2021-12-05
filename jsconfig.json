@@ -9,6 +9,7 @@
       "@internals/*": ["./internals/*"],
       "@utils/*": ["./app/utils/*"],
       "@images/*": [".app/images/*"],
+      "@API/*": [".app/utils/API/*"]
     }
   }
 }

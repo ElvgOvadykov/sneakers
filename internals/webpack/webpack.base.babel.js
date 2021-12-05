@@ -5,6 +5,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
 const cssOutputPath = "assets/css";
@@ -128,6 +129,7 @@ module.exports = options => ({
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
     }),
+    new CopyPlugin([{ from: "./app/global-config.js", to: "" }]),
     new MiniCssExtractPlugin({
       filename: devMode
         ? `${cssOutputPath}/[name].css`

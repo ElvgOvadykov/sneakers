@@ -4,13 +4,14 @@ import {
   SNEAKERS_LOAD_FAILURE,
 } from "./constants";
 
-export const sneakersLoadRequest = () => ({
+export const sneakersLoadRequest = payload => ({
   type: SNEAKERS_LOAD_REQUEST,
+  payload,
 });
 
-export const sneakersLoadSuccess = sneakers => ({
+export const sneakersLoadSuccess = data => ({
   type: SNEAKERS_LOAD_SUCCESS,
-  sneakers,
+  data,
 });
 
 export const sneakersLoadFailure = error => ({
