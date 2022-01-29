@@ -27,15 +27,15 @@ export default function App() {
       <Cart />
       <Switch>
         <Route exact path="/login" component={Auth} />
+        <div className="wrapper">
+          <Header />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/bookmarks" component={BookmarksPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
       </Switch>
-      <div className="wrapper">
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/bookmarks" component={BookmarksPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </div>
     </React.Fragment>
   );
 }
