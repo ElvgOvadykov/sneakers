@@ -18,11 +18,13 @@ export const initialState = {
       id: 2,
       name: "Мужские Кроссовки Nike Air Max 270",
       price: 12999,
+      img: "https://i.ibb.co/dPYq6tH/image-5.png",
     },
     {
       id: 3,
       name: "Кроссовки Puma X Aka Boku Future Rider",
       price: 8999,
+      img: "https://i.ibb.co/mG9q6wc/image-5-1.png",
     },
   ],
 };

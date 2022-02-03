@@ -1,0 +1,40 @@
+.not_found_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  h5 {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  &__comment {
+    font-weight: 400;
+    color: #000000;
+    opacity: 0.5;
+    text-align: center;
+    max-width: 275px;
+    margin-bottom: 40px;
+  }
+
+  button {
+    width: 290px;
+
+    &:hover {
+      img {
+        transform: translateX(-5px);
+      }
+    }
+
+    img {
+      position: absolute;
+      left: 20px;
+      top: 21px;
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+}

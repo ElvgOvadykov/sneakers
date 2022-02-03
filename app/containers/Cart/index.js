@@ -68,7 +68,7 @@ function Cart(props) {
       <div className="cart-empty">
         <img src={emptySvg} alt="Empty" />
         <h5>
-          <FormattedMessage {...messages.empty} />{" "}
+          <FormattedMessage {...messages.empty} />
         </h5>
         <span className="empty-comment">
           <FormattedMessage {...messages.emptyComment} />

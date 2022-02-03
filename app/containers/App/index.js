@@ -12,7 +12,7 @@ import { Switch, Route } from "react-router-dom";
 
 import HomePage from "containers/HomePage/Loadable";
 import BookmarksPage from "@containers/BookmarksPage/Loadable";
-import NotFoundPage from "containers/NotFoundPage/Loadable";
+import NotFoundPage from "@containers/NotFoundPage/Loadable";
 import Header from "@components/Header/Loadable";
 import Cart from "@containers/Cart/Loadable";
 import Auth from "@containers/Auth/Loadable";
